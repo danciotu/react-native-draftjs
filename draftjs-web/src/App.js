@@ -10,6 +10,8 @@ import { stateFromHTML } from "draft-js-import-html";
 import { stateToHTML } from "draft-js-export-html";
 import { Map } from "immutable";
 import EditorController from "./Components/EditorController/EditorController";
+import ResizableTextarea from "./Components/ResizableTextArea";
+import "./App.css";
 
 /**
  * For testing the post messages
@@ -89,7 +91,7 @@ function App() {
 
   useEffect(() => {
     setDefaultValue(
-      "<h1>A Full fledged Text Editor</h1><p>This editor is built with Draft.js. Hence should be suitable for most projects. However, Draft.js Isn’t fully compatible with mobile yet. So you might face some issues.</p><p><br></p><p>This is a simple implementation</p><ul>  <li>It contains <strong>Text formatting </strong>and <em>Some blocks formatting</em></li>  <li>Each for it’s own purpose</li></ul><p>You can also do</p><ol>  <li>Custom style map</li>  <li>Own css styles</li>  <li>Custom block styling</li></ol><p>You are welcome to try it!</p>"
+      "<p>This editor is built with Draft.js. Hence should be suitable for most projects. However, Draft.js Isn’t fully compatible with mobile yet. So you might face some issues.</p><p><br></p><p>This is a simple implementation</p><ul>  <li>It contains <strong>Text formatting </strong>and <em>Some blocks formatting</em></li>  <li>Each for it’s own purpose</li></ul><p>You can also do</p><ol>  <li>Custom style map</li>  <li>Own css styles</li>  <li>Custom block styling</li></ol><p>You are welcome to try it!</p>"
     );
   }, []);
 
@@ -148,13 +150,24 @@ function App() {
         flex: 1,
         flexDirection: "column",
         display: "flex",
-        backgroundColor: "#F2EFEB",
+        backgroundColor: "#FFFFFF",
         padding: "10px 10px",
-        minHeight: "100vh",
-        overflowY: "scroll",
+        minHeight: "40vh",
+        margin: "10px 10px",
+        borderRadius: 20,
       }}
     >
-      <input placeholder="aici ar fi titlu"></input>
+      <ResizableTextarea />
+      <div
+        style={{
+          width: "70px",
+          height: "20px",
+          backgroundColor: "red",
+          zIndex: 9999,
+          margin: "10px 0px",
+          borderRadius: "20px",
+        }}
+      ></div>
       <style>
         {`.public-DraftEditorPlaceholder-root{position: absolute;color: silver;pointer-events: none;z-index: -10000;}${editorStyle}`}
       </style>
@@ -162,9 +175,8 @@ function App() {
         style={{
           minHeight: 80,
           padding: 10,
-          border: "1px solid #ccc",
+          paddingTop: 0,
           cursor: "text",
-          backgroundColor: "white",
         }}
         onClick={focusTextEditor}
       >
