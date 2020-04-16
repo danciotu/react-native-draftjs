@@ -4,7 +4,7 @@ import {
   EditorState,
   RichUtils,
   getDefaultKeyBinding,
-  DefaultDraftBlockRenderMap,
+  DefaultDraftBlockRenderMap
 } from "draft-js";
 import { stateFromHTML } from "draft-js-import-html";
 import { stateToHTML } from "draft-js-export-html";
@@ -28,6 +28,7 @@ function App() {
   const [styleMap, setStyleMap] = useState({});
   const [blockRenderMap, setBlockRenderMap] = useState(Map({}));
   const [isMounted, setMountStatus] = useState(false);
+  const [title, setTitle] = useState("");
 
   useEffect(() => {
     if (!isMounted) {
@@ -38,7 +39,7 @@ function App() {
       if (window.ReactNativeWebView) {
         window.ReactNativeWebView.postMessage(
           JSON.stringify({
-            isMounted: true,
+            isMounted: true
           })
         );
       }
@@ -54,7 +55,7 @@ function App() {
     return false;
   };
 
-  const mapKeyToEditorCommand = (e) => {
+  const mapKeyToEditorCommand = e => {
     switch (e.keyCode) {
       case 9: // TAB
         const newEditorState = RichUtils.onTab(
@@ -71,15 +72,15 @@ function App() {
     }
   };
 
-  const toggleBlockType = (blockType) => {
+  const toggleBlockType = blockType => {
     setEditorState(RichUtils.toggleBlockType(editorState, blockType));
   };
 
-  const toggleInlineStyle = (inlineStyle) => {
+  const toggleInlineStyle = inlineStyle => {
     setEditorState(RichUtils.toggleInlineStyle(editorState, inlineStyle));
   };
 
-  const setDefaultValue = (html) => {
+  const setDefaultValue = html => {
     try {
       if (html) {
         setEditorState(EditorState.createWithContent(stateFromHTML(html)));
@@ -95,15 +96,15 @@ function App() {
     );
   }, []);
 
-  const setEditorPlaceholder = (placeholder) => {
+  const setEditorPlaceholder = placeholder => {
     setPlaceholder(placeholder);
   };
 
-  const setEditorStyleSheet = (styleSheet) => {
+  const setEditorStyleSheet = styleSheet => {
     setEditorStyle(styleSheet);
   };
 
-  const setEditorStyleMap = (editorStyleMap) => {
+  const setEditorStyleMap = editorStyleMap => {
     setStyleMap(editorStyleMap);
   };
 
@@ -115,7 +116,7 @@ function App() {
     _draftEditorRef.current && _draftEditorRef.current.blur();
   };
 
-  const setEditorBlockRenderMap = (renderMapString) => {
+  const setEditorBlockRenderMap = renderMapString => {
     try {
       setBlockRenderMap(Map(JSON.parse(renderMapString)));
     } catch (e) {
@@ -138,6 +139,7 @@ function App() {
     window.ReactNativeWebView.postMessage(
       JSON.stringify({
         editorState: stateToHTML(editorState.getCurrentContent()),
+        editorTitle: title
       })
     );
   }
@@ -154,10 +156,10 @@ function App() {
         padding: "10px 10px",
         minHeight: "40vh",
         margin: "10px 10px",
-        borderRadius: 20,
+        borderRadius: 20
       }}
     >
-      <ResizableTextarea />
+      <ResizableTextarea value={title} onValueChange={setTitle} />
       <div
         style={{
           width: "70px",
@@ -165,7 +167,7 @@ function App() {
           backgroundColor: "red",
           zIndex: 9999,
           margin: "10px 0px",
-          borderRadius: "20px",
+          borderRadius: "20px"
         }}
       ></div>
       <style>
@@ -176,7 +178,7 @@ function App() {
           minHeight: 80,
           padding: 10,
           paddingTop: 0,
-          cursor: "text",
+          cursor: "text"
         }}
         onClick={focusTextEditor}
       >

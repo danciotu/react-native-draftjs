@@ -1,14 +1,13 @@
 import React, { useState } from "react";
 import "./ResizableTextArea.scss";
 
-const ResizableTextarea = (props) => {
+const ResizableTextarea = props => {
   const [rows, setRows] = useState(1);
   const [minRows] = useState(1);
   const [maxRows] = useState(5);
-  const [value, setValue] = useState("");
   const _textAreaRef = React.createRef();
 
-  const handleChange = (event) => {
+  const handleChange = event => {
     const textareaLineHeight = 24;
 
     const previousRows = event.target.rows;
@@ -27,7 +26,7 @@ const ResizableTextarea = (props) => {
 
     const value = event.target.value.replace("\n", "");
 
-    setValue(value);
+    props.onValueChange(value);
     setRows(currentRows < maxRows ? currentRows : maxRows);
   };
 
@@ -42,7 +41,7 @@ const ResizableTextarea = (props) => {
       ref={_textAreaRef}
       maxLength="150"
       rows={rows}
-      value={value}
+      value={props.value}
       placeholder={"Give it a title..."}
       className={"textarea"}
       onChange={handleChange}

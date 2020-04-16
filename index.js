@@ -21,7 +21,8 @@ class RNDraftView extends Component {
   _webViewRef = React.createRef();
 
   state = {
-    editorState: ""
+    editorState: "",
+    editorTitle: ""
   };
 
   executeScript = (functionName, parameter) => {
@@ -43,17 +44,28 @@ class RNDraftView extends Component {
     return this.state.editorState;
   };
 
+  getEditorTitle = () => {
+    return this.state.editorTitle;
+  };
+
   _onMessage = event => {
     const {
       onStyleChanged = () => null,
       onBlockTypeChanged = () => null
     } = this.props;
     const { data } = event.nativeEvent;
-    const { blockType, styles, editorState, isMounted } = JSON.parse(data);
+    const {
+      blockType,
+      styles,
+      editorState,
+      isMounted,
+      editorTitle
+    } = JSON.parse(data);
     onStyleChanged(styles ? styles.split(",") : []);
     if (blockType) onBlockTypeChanged(blockType);
     if (editorState)
       this.setState({ editorState: editorState.replace(/(\r\n|\n|\r)/gm, "") });
+    if (editorTitle) this.setState({ editorTitle });
     if (isMounted) this.widgetMounted();
   };
 
