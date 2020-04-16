@@ -73,6 +73,7 @@ class RNDraftView extends Component {
     const {
       placeholder,
       defaultValue,
+      defaultTitle,
       styleSheet,
       styleMap,
       blockRenderMap,
@@ -80,6 +81,9 @@ class RNDraftView extends Component {
     } = this.props;
     if (defaultValue) {
       this.executeScript("setDefaultValue", defaultValue);
+    }
+    if (defaultTitle) {
+      this.executeScript("setEditorTitle", defaultTitle);
     }
     if (placeholder) {
       this.executeScript("setEditorPlaceholder", placeholder);

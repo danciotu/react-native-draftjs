@@ -90,11 +90,11 @@ function App() {
     }
   };
 
-  useEffect(() => {
-    setDefaultValue(
-      "<p>This editor is built with Draft.js. Hence should be suitable for most projects. However, Draft.js Isn’t fully compatible with mobile yet. So you might face some issues.</p><p><br></p><p>This is a simple implementation</p><ul>  <li>It contains <strong>Text formatting </strong>and <em>Some blocks formatting</em></li>  <li>Each for it’s own purpose</li></ul><p>You can also do</p><ol>  <li>Custom style map</li>  <li>Own css styles</li>  <li>Custom block styling</li></ol><p>You are welcome to try it!</p>"
-    );
-  }, []);
+  const setEditorTitle = title => {
+    if (title && typeof title === "string") {
+      setTitle(title);
+    }
+  };
 
   const setEditorPlaceholder = placeholder => {
     setPlaceholder(placeholder);
@@ -128,6 +128,7 @@ function App() {
   window.toggleBlockType = toggleBlockType;
   window.toggleInlineStyle = toggleInlineStyle;
   window.setDefaultValue = setDefaultValue;
+  window.setEditorTitle = setEditorTitle;
   window.setEditorPlaceholder = setEditorPlaceholder;
   window.setEditorStyleSheet = setEditorStyleSheet;
   window.setEditorStyleMap = setEditorStyleMap;
